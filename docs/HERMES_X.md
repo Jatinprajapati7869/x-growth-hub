@@ -29,7 +29,9 @@ hermes plugins install cursor-acp
 hermes plugins enable cursor-acp
 ```
 
-If `npx hermes-cursor-acp` is blocked by Hermes security scan, install from the catalog entry above or approve via `hermes plugins install <url> --force` after reviewing the plugin source ([marketplace](https://hermes-agent.nousresearch.com/marketplace/cursor-acp)).
+**Windows:** `cursor-acp` plugin reports `unavailable on win32` (linux/macos only). On Windows use either: (1) Hermes with your existing `~/.hermes/config.yaml` model provider, (2) run Hermes from WSL for cursor-acp, or (3) drive X from Cursor chat via `hermes -p <profile> -q` while you already use Composer in the IDE.
+
+If install is blocked by Hermes security scan, use `hermes plugins install <url> --force` after reviewing the plugin ([marketplace](https://hermes-agent.nousresearch.com/marketplace/cursor-acp)).
 
 Base `~/.hermes/config.yaml` (before per-account profiles):
 
