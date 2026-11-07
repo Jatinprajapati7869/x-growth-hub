@@ -1,0 +1,16 @@
+# Encoded limits for SOUL.md and cron (grill-aligned defaults)
+
+default:
+  posts_per_day_min: 7
+  posts_per_day_max: 10
+  min_minutes_between_posts: 60
+
+affiliate:
+  monetized_posts_per_day_max: 1
+  posts_per_day_min: 7
+  posts_per_day_max: 10
+
+safety:
+  block_hate_harassment: true
+  require_image_per_post: true
+  video_enabled: false

@@ -10,6 +10,8 @@ accounts/*.yaml
 !accounts/example.account.yaml
 secrets/
 drafts/
+docs/skill-candidates.md
+hermes/skills/inbox/
 
 # OS and editors
 .DS_Store

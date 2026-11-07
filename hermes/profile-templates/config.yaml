@@ -1,15 +1,16 @@
-# Template for ~/.hermes/profiles/<profile_id>/config.yaml
-# Copy via scripts/sync-hermes-profiles.ps1
+# ~/.hermes/profiles/<profile_id>/config.yaml
 
 browser:
   backend: ""
   headed: false
   user_data_dir: "USER_HOME/.x-growth-hub/chrome-profiles/PROFILE_ID"
   inactivity_timeout: 600
+  use_real_profile: USE_REAL_PROFILE
+  real_profile_pin: "REAL_PROFILE_PIN"
 
 model:
-  provider: cursor-acp
-  default: composer-2.5
+  provider: PROVIDER
+  default: MODEL_ID
 
 agent:
   disabled_toolsets: []

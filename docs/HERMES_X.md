@@ -57,6 +57,21 @@ Disable cloud browser plugins (no API keys):
 .\scripts\disable-hermes-cloud-browsers.ps1
 ```
 
+## Two accounts (grill setup)
+
+| Profile id | Type | Chrome `real_profile_pin` |
+|------------|------|---------------------------|
+| `x-ai-dev` | AI news / dev | Your first Chrome profile name |
+| `x-affiliate` | Value + 1 affiliate post/day | Second Chrome profile |
+
+```powershell
+.\scripts\sync-hermes-profiles.ps1 -ProfileId x-ai-dev -AccountType ai-developer -RealProfilePin "Default"
+.\scripts\sync-hermes-profiles.ps1 -ProfileId x-affiliate -AccountType affiliate -RealProfilePin "Profile 2"
+.\scripts\sync-skills-inbox.ps1
+```
+
+Grok **image_generate** before compose per `hermes/skills/x-post/SKILL.md`. Limits: [config/posting-limits.yaml](../config/posting-limits.yaml).
+
 ## One Hermes profile per X account
 
 ```powershell

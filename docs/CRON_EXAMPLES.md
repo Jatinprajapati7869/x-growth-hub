@@ -1,26 +1,36 @@
-# cronjob_manage examples
+# Hermes cron (posting half)
 
-Run inside `hermes -p <profile>` after skill `x-post` is installed.
+Models: **Grok / xAI** in Hermes. Browser: **real Chrome profile** per account (see profile `config.yaml`).
 
-## Daily queue processor
+## One-time: two profiles
 
-Natural language prompt for the agent:
-
-```
-Use cronjob_manage action=create to run every day at 09:00. Attach skill x-post.
-Each run: read workspace/queue.json; for items where status is pending and scheduled_at <= now,
-verify logged in at x.com/home via browser_exec; if logged in, post text and mark posted; if not, mark skipped with not_logged_in.
-Never enter passwords.
+```powershell
+cd x-growth-hub
+.\scripts\sync-hermes-profiles.ps1 -ProfileId x-ai-dev -AccountType ai-developer -RealProfilePin "Default"
+.\scripts\sync-hermes-profiles.ps1 -ProfileId x-affiliate -AccountType affiliate -RealProfilePin "Profile 2"
+.\scripts\sync-skills-inbox.ps1
 ```
 
-## Dry-run only
+Adjust `RealProfilePin` to your Chrome profile folder names (chrome://version → Profile Path).
 
-```
-Create a one-shot cronjob_manage run in 2 minutes that only checks x.com/home login state and prints queue summary — no posting.
+## Daily processor (inside Hermes)
+
+```text
+cronjob_manage create — attach skills: x-post
+Prompt:
+Every 60 minutes between 8:00 and 22:00 local, run one pass:
+load x-post, read workspace/queue.json and post_log.json,
+post next due pending item if under 10 posts today and 60m since last,
+generate image via image_generate from image_prompt,
+upload via browser_exec compose,
+enforce affiliate max 1 monetized post per day on this profile,
+skip if not logged in, never type passwords.
 ```
 
-## Learn after failure
+## Affiliate rule
 
-```
-After fixing compose selectors, use skill_manage to append a "Last known selectors" section to x-post with the steps that worked.
-```
+Before posting `monetized: true`, count monetized posts in `post_log.json` for today — if ≥1, skip and set queue item `skipped`.
+
+## Cursor automation
+
+Research + queue suggestions only: [CURSOR_AUTOMATION_PROMPT.md](CURSOR_AUTOMATION_PROMPT.md)

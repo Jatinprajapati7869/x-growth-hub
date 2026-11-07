@@ -1,8 +1,20 @@
 [
   {
     "id": "00000000-0000-4000-8000-000000000001",
-    "text": "Example queued post — replace before scheduling.",
+    "text": "Post body — hook in first line.",
+    "image_prompt": "Minimal tech illustration matching post topic, no copied artwork",
+    "reference_note": "optional inspiration topic only — do not republish others' media",
+    "monetized": false,
     "scheduled_at": "2026-03-07T09:00:00",
+    "status": "pending",
+    "posted_at": null
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000002",
+    "text": "Value post with exactly one affiliate link when monetized is true.",
+    "image_prompt": "Product-style graphic, clean, on-brand",
+    "monetized": true,
+    "scheduled_at": "2026-03-07T18:00:00",
     "status": "pending",
     "posted_at": null
   }

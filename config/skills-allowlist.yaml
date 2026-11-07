@@ -1,0 +1,26 @@
+# Repos scanned by scripts/sync-skills-inbox.ps1 (shallow clone into hermes/skills/inbox/)
+# Only install skills whose SKILL.md passes name/description allow keywords.
+
+allow_keywords:
+  - hook
+  - copywriting
+  - tweet
+  - twitter
+  - x-post
+  - social
+  - engagement
+  - thread
+  - image
+  - prompt
+  - visual
+
+block_keywords:
+  - exploit
+  - spam-bot
+  - mass-dm
+
+repos:
+  - url: https://github.com/obra/superpowers.git
+    note: Optional writing/planning skills — review before enabling
+  - url: https://github.com/bear2u/my-skills.git
+    note: Community skills — scan for social/copy subfolders only
