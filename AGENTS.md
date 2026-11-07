@@ -4,46 +4,61 @@ Single source of truth for Cursor (and other agents) working in this repo.
 
 ## Purpose
 
-Research X trends and publish posts for **multiple accounts** without paid X API. Default: **browser session** (cookies). Optional: **free Developer Portal** per account (`transport: api`).
+Grow **multiple X accounts** with **no X API**. Primary runtime: **[Hermes Agent](https://hermes-agent.nousresearch.com/)** `browser_exec` + local Chromium per profile. Model: **Cursor Composer** via **cursor-acp** in Hermes—not a separate Claude/Codex API.
 
 ## Hard rules
 
-1. **Never** commit cookies, tokens, bearer keys, or real `accounts/*.yaml` (only `example.account.yaml` is in git).
-2. **One primary write MCP per account** — `x-use` OR `tweetly` OR `XActions` browser write OR `xsh`; never double-post via two writers.
-3. **Rate limits** in account yaml: respect `posts_per_day` and `min_minutes_between_posts`.
-4. **No bulk engagement by default** — `growth.allow_follow` and `growth.allow_like` false unless user explicitly enables.
-5. **API path:** `x-agent` writes need `X_AGENT_ALLOW_WRITE=true` and user approval in chat.
-6. **ToS:** remind user that automation can risk suspension; keep volume human-like.
+1. **Never** commit cookies, tokens, or real `accounts/*.yaml`.
+2. **Hermes is the default writer** — one profile per X account, one `browser.user_data_dir`.
+3. **Hub MCP writers** (x-use, tweetly, XActions write) are **emergency break-glass only** — not with Hermes in the same task.
+4. **No API path** — no Developer Portal, no `x-agent`, no bearer keys in `~/.hermes`.
+5. **Human logs into X once** — agent must not submit passwords.
+6. Rate limits in `SOUL.md` / account yaml: `posts_per_day`, `min_minutes_between_posts`.
+7. **No bulk engagement** unless user explicitly enables in SOUL/limits.
 
 ## Which tool when
 
-| Task | Tool (order of preference) |
-|------|----------------------------|
-| Public scrape / profile | XActions HTTP client, `xactions` CLI |
-| Search trends / timelines | xsh, XActions, x-use read tools |
-| Draft copy | Repo `drafts/<id>/`, x-use queue, `x-agent post draft` (if API) |
-| Publish (browser) | Account `browser.tool_preference` |
-| Analytics (API) | x-agent (optional submodule) |
+| Task | Tool |
+|------|------|
+| Research, draft, post | `hermes -p <profile>` + skill `x-post` + `browser_exec` |
+| Schedule | Hermes `cronjob_manage` + profile `workspace/queue.json` |
+| Learn workflows | `skill_manage` / edit `hermes/skills/x-post/SKILL.md` |
+| Edit hub docs/skills | Cursor in this repo |
+| DOM post failed twice | One-shot `xsh` from exported cookies ([docs/HERMES_X.md](docs/HERMES_X.md)) |
+| Reference only | `upstream/` submodules |
 
 See [docs/TOOL_MATRIX.md](docs/TOOL_MATRIX.md).
 
 ## Multi-account
 
-1. Read account id from user or `accounts/<id>.yaml` (local, gitignored).
-2. Load secrets from `%USERPROFILE%\.x-growth-hub\secrets\<id>\`.
-3. Pass account id to MCP tools that support it (x-use, tweetly, xsh `--account`).
+1. `account id` ↔ `hermes_profile` in [accounts/example.account.yaml](accounts/example.account.yaml).
+2. `.\scripts\sync-hermes-profiles.ps1 -ProfileId <id>`.
+3. Chromium data: `%USERPROFILE%\.x-growth-hub\chrome-profiles\<id>\`.
+
+## Cursor workflow
+
+- **Do not** enable hub write MCPs by default in [config/mcp.recommended.json](config/mcp.recommended.json).
+- Delegate: `hermes -p x-niche-ai -q "..."` instead of driving X from Cursor browser MCP.
+- Optional: Hermes `mcp-serve` for messaging bridge only.
 
 ## Workflow
 
-1. **Research** — read-only MCP/CLI.
-2. **Draft** — markdown in `drafts/` or tool draft queue; match `persona`.
-3. **Confirm** — user says post unless they pre-authorized automation.
-4. **Publish** — single chosen write path; log time for rate limit.
+1. **Research** — `browser_exec` read-only.
+2. **Draft** — profile workspace or repo `hermes/workspace` examples.
+3. **Confirm** — user says post (unless cron queue).
+4. **Publish** — `browser_exec` only.
+
+## Docs
+
+- [docs/HERMES_X.md](docs/HERMES_X.md) — install, cursor-acp, profiles
+- [docs/SCHEDULING.md](docs/SCHEDULING.md) — cron + queue
+- [docs/ACCOUNTS.md](docs/ACCOUNTS.md) — yaml + secrets (emergency cookies)
+
+## Skills
+
+- Hermes: [hermes/skills/x-post/SKILL.md](hermes/skills/x-post/SKILL.md)
+- Cursor (editing hub): [.cursor/skills/x-post/SKILL.md](.cursor/skills/x-post/SKILL.md)
 
 ## Submodules
 
-Code lives under `upstream/`. Do not merge upstream into root. Update with `scripts/submodule-update.ps1`.
-
-## Skill
-
-For posting flows, use `.cursor/skills/x-post/SKILL.md`.
+`upstream/` is vendored reference and emergency CLI source. Update: `scripts/submodule-update.ps1`.

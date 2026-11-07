@@ -1,19 +1,16 @@
-# Copy to a local path (e.g. %USERPROFILE%\.x-growth-hub\accounts\<id>.yaml).
-# Do not commit real account files — they are gitignored as accounts/*.yaml except this template.
+# Copy to %USERPROFILE%\.x-growth-hub\accounts\<id>.yaml (gitignored).
+# Hermes profile is the primary runtime — no X API.
 
 id: example_account
-transport: browser # browser | api
+hermes_profile: example_account
 
 persona: |
   Voice: technical builder, concise, no engagement bait.
   Topics: dev tools, indie SaaS, AI workflows.
 
 browser:
-  tool_preference: x-use # x-use | tweetly | XActions | xsh
-  cookie_file: "%USERPROFILE%\\.x-growth-hub\\secrets\\example_account\\cookies.json"
-
-api:
-  provider: x-agent # only when transport is api and free portal keys exist
+  chrome_user_data_dir: "%USERPROFILE%\\.x-growth-hub\\chrome-profiles\\example_account"
+  emergency_cookie_file: "%USERPROFILE%\\.x-growth-hub\\secrets\\example_account\\cookies.json"
 
 limits:
   posts_per_day: 4

@@ -1,32 +1,27 @@
 ---
 name: x-post
-description: Research, draft, and publish X posts for a configured account via x-growth-hub MCP/CLI. Use when the user asks to post on X, grow an account, or run the growth workflow.
+description: Delegate X growth to Hermes browser_exec. Use when user asks to post on X or run the growth workflow.
 ---
 
-# x-post skill
+# x-post (Cursor hub)
 
-## Before acting
+Hub repo does **not** post via Cursor MCP by default.
 
-1. Read [AGENTS.md](../../AGENTS.md) and the user's account id.
-2. Load local account yaml (gitignored) and secrets under `%USERPROFILE%\.x-growth-hub\secrets\<id>\`.
-3. Pick **read** tools first; **write** only after user approval unless they said "auto-post".
+## Do
 
-## Research
+1. Read [AGENTS.md](../../AGENTS.md) and [docs/HERMES_X.md](../../docs/HERMES_X.md).
+2. Map account → `hermes_profile` in local account yaml.
+3. Propose or run: `hermes -p <profile> -q "..."` with skill `x-post`.
+4. Edit [hermes/skills/x-post/SKILL.md](../../hermes/skills/x-post/SKILL.md) when selectors change.
 
-- Trends/search: `xsh` or XActions MCP read tools or x-use profile/search.
-- Save notes to `drafts/<account_id>/YYYY-MM-DD-topic.md` in the repo (gitignored drafts folder is ok locally).
+## Do not
 
-## Draft
+- Enable hub x-use/tweetly/XActions write MCP in same workflow as Hermes post.
+- Add X API keys or Developer Portal steps.
+- Type the user's X password in browser automation.
 
-- Match `persona` from account yaml.
-- Check character limit; thread if needed via xsh `compose_thread` or tweetly `post_thread`.
+## New account
 
-## Publish
-
-- Use **only** `browser.tool_preference` for that account.
-- Enforce `limits.posts_per_day` and `min_minutes_between_posts`.
-- If `transport: api`, use x-agent with `X_AGENT_ALLOW_WRITE=true` after user confirms.
-
-## After post
-
-- Note timestamp in draft file footer for rate-limit tracking.
+```powershell
+.\scripts\sync-hermes-profiles.ps1 -ProfileId <id>
+```

@@ -1,0 +1,9 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "text": "Example queued post — replace before scheduling.",
+    "scheduled_at": "2026-03-07T09:00:00",
+    "status": "pending",
+    "posted_at": null
+  }
+]

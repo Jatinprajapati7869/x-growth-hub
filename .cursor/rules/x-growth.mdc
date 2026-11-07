@@ -1,10 +1,6 @@
 ---
-description: X growth hub orchestration — read AGENTS.md before posting or scraping.
+description: x-growth-hub — Hermes browser_exec first, no X API.
 alwaysApply: true
 ---
 
-This project is **x-growth-hub**. Follow [AGENTS.md](../../AGENTS.md) for multi-account X automation.
-
-- Upstream code is in `upstream/` submodules — do not flatten or copy without reason.
-- Never commit secrets; use `%USERPROFILE%\.x-growth-hub\secrets\`.
-- One primary write MCP per account; confirm with user before posting unless explicitly authorized.
+Follow [AGENTS.md](../../AGENTS.md). **Hermes** `browser_exec` is the default for X; hub MCP writers are emergency only. Delegate with `hermes -p <profile>`. See [docs/HERMES_X.md](../../docs/HERMES_X.md).

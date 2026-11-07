@@ -1,6 +1,13 @@
 {
-  "_comment": "Merge into Cursor MCP settings. Replace REPO_ROOT and USER_HOME.",
+  "_comment": "Hermes-first: run X in terminal. MCP below is messaging bridge + optional emergency only.",
   "mcpServers": {
+    "hermes-messaging": {
+      "_note": "After: hermes plugins install mcp-serve",
+      "command": "hermes",
+      "args": ["mcp-serve"]
+    }
+  },
+  "_emergency_do_not_enable_with_hermes_writes": {
     "x-actions": {
       "command": "npm",
       "args": ["run", "mcp"],

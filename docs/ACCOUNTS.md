@@ -1,57 +1,49 @@
-# Multi-account setup
+# Multi-account setup (Hermes)
 
-## Directory layout (local only)
+## Mapping
 
-```
-%USERPROFILE%\.x-growth-hub\
-  accounts\
-    niche_ai_1.yaml          # copy from repo example; not in git
-  secrets\
-    niche_ai_1\
-      cookies.json           # Cookie Editor export or Playwright storage
-      storageState.json      # optional Playwright format
-    niche_ai_2\
-      ...
-  x-use-home\                # x-use data dir (set X_USE_HOME)
-```
+| Field | Location |
+|-------|----------|
+| `id` | Logical account name |
+| `hermes_profile` | Same id → `~/.hermes/profiles/<id>/` |
+| Chrome data | `%USERPROFILE%\.x-growth-hub\chrome-profiles\<id>\` |
+| Emergency cookies | `%USERPROFILE%\.x-growth-hub\secrets\<id>\cookies.json` |
 
-Repo template: [accounts/example.account.yaml](../accounts/example.account.yaml).
+Template: [accounts/example.account.yaml](../accounts/example.account.yaml).
 
-## Cookie export
-
-1. Log into X in a normal browser (one account per profile).
-2. Export cookies for `x.com` via Cookie Editor or DevTools (`auth_token`, `ct0`).
-3. Save JSON under `secrets\<account_id>\cookies.json`.
-4. **Never** commit this file.
-
-### Playwright storage state (alternative)
+## Create profile
 
 ```powershell
-npx playwright codegen x.com --save-storage="$env:USERPROFILE\.x-growth-hub\secrets\<id>\storageState.json"
+.\scripts\sync-hermes-profiles.ps1 -ProfileId niche_ai_1
 ```
 
-## Per-tool import
+Copy account yaml to `%USERPROFILE%\.x-growth-hub\accounts\niche_ai_1.yaml`.
 
-| Tool | Command / action |
-|------|------------------|
-| **xsh** | `xsh auth import secrets\<id>\cookies.json --account <id>` |
-| **x-use** | Wizard or `add_account` MCP with cookie file path |
-| **tweetly** | Follow submodule README `connect_x_account` flow |
-| **XActions** | Puppeteer path needs logged-in browser; see XActions docs |
-| **frigatebird** | `AUTH_TOKEN` + `CT0` env or cookie flags |
+## Login (once per account)
 
-## Optional API account
+See [HERMES_X.md](HERMES_X.md): `browser.headed: true` → human logs in → `headed: false`.
 
-Set `transport: api` and store keys in `secrets\<id>\.env` (gitignored):
+Hermes persists session via `browser.user_data_dir` — **not** via X API.
 
+## Emergency cookies (xsh only)
+
+If you need break-glass CLI:
+
+1. Export cookies after logged-in Chrome session.
+2. Save to `secrets\<id>\cookies.json`.
+3. `xsh auth import ... --account <id>` — never use with Hermes write in same cron tick.
+
+## Second account
+
+```powershell
+.\scripts\sync-hermes-profiles.ps1 -ProfileId niche_ai_2
 ```
-X_BEARER_TOKEN=...
-# or x-agent OAuth profile per x-agent docs
+
+Separate `user_data_dir` — never share Chromium profile between accounts.
+
+## Verify
+
+```powershell
+.\scripts\hermes-doctor.ps1
+.\scripts\verify-hermes-stack.ps1
 ```
-
-## Adding a second account
-
-1. Duplicate yaml with new `id`.
-2. New folder under `secrets\<new_id>\`.
-3. Separate `X_USE_HOME` subfolder or tweetly account profile.
-4. Run `.\scripts\doctor.ps1 -AccountId <new_id>`.

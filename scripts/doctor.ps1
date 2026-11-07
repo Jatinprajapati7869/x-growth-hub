@@ -17,6 +17,10 @@ function Report-Fail($msg) { Write-Host "[fail] $msg" -ForegroundColor Red; $scr
 Write-Host "x-growth-hub doctor" -ForegroundColor Cyan
 Write-Host "Account check id: $AccountId"
 
+if (Test-Path (Join-Path $RepoRoot "scripts\hermes-doctor.ps1")) {
+    & (Join-Path $RepoRoot "scripts\hermes-doctor.ps1")
+}
+
 @(
     "README.md",
     "AGENTS.md",

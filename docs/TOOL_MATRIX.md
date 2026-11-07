@@ -1,28 +1,32 @@
 # Tool matrix
 
-When to use which vendored tool. All paths are under `upstream/` unless installed globally (`xsh`, `@talocode/x-agent`).
+## Tier 0 — Default (Hermes, no API)
 
-## Browser path (default)
-
-| Tool | Best for | Avoid |
+| Tool | Best for | Notes |
 |------|----------|-------|
-| **XActions** | Scraping, CLI batch ops, MCP breadth | Same account as tweetly/x-use writer |
-| **x-use** | Multi-account, drafts, reviewed publish, inbox | Heavy scrape-only jobs (use XActions client) |
-| **tweetly** | Queued writes, monitors, Cursor HTTP MCP | Parallel writer with x-use |
-| **xsh** | Fast CLI, search, cookie auth from browser, MCP | Users who only want GUI MCP |
-| **frigatebird** | Shell workflows (`bird`-style), cookie env vars | Deep MCP integration (use x-use/tweetly) |
-| **playwright-twitter-automation** | Learning cookie + Playwright patterns | Production orchestration |
+| **Hermes `browser_exec`** | Research, compose, post on x.com | One profile + `user_data_dir` per account |
+| **Hermes `cronjob_manage`** | Scheduled queue posts | Skill `x-post` |
+| **Hermes `skill_manage`** | Learn selector fixes | Updates `x-post` |
+| **cursor-acp** | Composer 2.5 in Hermes | No separate LLM API bill |
 
-## Optional API path
+## Tier C — Break glass (hub vendored)
+
+Use **only** when `browser_exec` fails twice; **never** same task as Hermes write.
 
 | Tool | Best for |
 |------|----------|
-| **x-agent** | OAuth analytics, Phoenix scoring, API drafts |
-| **twitter-agent** | Reference for scheduled API agents |
-| **zanaX** | LangGraph + Telegram approval flows |
-| **ai-twitter-bot** | RSS/news → tweet via tweepy (free API tier) |
+| **xsh** | Cookie CLI post from exported profile cookies |
+| **x-use** / **tweetly** | Legacy MCP (do not enable in Cursor by default) |
+| **XActions** | Scrape/public HTTP without login |
+
+## Tier R — Reference (do not use for default posting)
+
+| Path | Purpose |
+|------|---------|
+| `upstream/optional-api/*` | API bots — out of scope |
+| `upstream/reference/twitter-setup` | Playwright cookie patterns |
 
 ## Research vs write
 
-- **Read-only first:** XActions `client`, xsh search, x-use profile/search.
-- **Write once:** check `browser.tool_preference` in account yaml.
+- **Read:** `browser_exec` on search/explore while logged in.
+- **Write:** Hermes only; emergency → single `xsh` command.
