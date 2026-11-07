@@ -1,0 +1,33 @@
+[submodule "upstream/browser/XActions"]
+	path = upstream/browser/XActions
+	url = https://github.com/nirholas/XActions.git
+[submodule "upstream/browser/x-use"]
+	path = upstream/browser/x-use
+	url = https://github.com/ihuzaifashoukat/x-use.git
+[submodule "upstream/browser/tweetly"]
+	path = upstream/browser/tweetly
+	url = https://github.com/beydemirfurkan/tweetly.git
+[submodule "upstream/browser/xsh"]
+	path = upstream/browser/xsh
+	url = https://github.com/benoitpetit/xsh.git
+[submodule "upstream/browser/frigatebird"]
+	path = upstream/browser/frigatebird
+	url = https://github.com/Oceanswave/frigatebird.git
+[submodule "upstream/browser/playwright-twitter-automation"]
+	path = upstream/browser/playwright-twitter-automation
+	url = https://github.com/mrcentimetre/playwright-twitter-automation.git
+[submodule "upstream/optional-api/x-agent"]
+	path = upstream/optional-api/x-agent
+	url = https://github.com/talocode/x-agent.git
+[submodule "upstream/optional-api/zanaX"]
+	path = upstream/optional-api/zanaX
+	url = https://github.com/riquelmechile/zanaX.git
+[submodule "upstream/optional-api/twitter-agent"]
+	path = upstream/optional-api/twitter-agent
+	url = https://github.com/arvindrk/twitter-agent.git
+[submodule "upstream/optional-api/ai-twitter-bot"]
+	path = upstream/optional-api/ai-twitter-bot
+	url = https://github.com/ThePhoenix77/ai-twitter-bot.git
+[submodule "upstream/reference/twitter-setup"]
+	path = upstream/reference/twitter-setup
+	url = https://github.com/coe0718/twitter-setup.git

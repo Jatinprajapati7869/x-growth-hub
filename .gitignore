@@ -1,0 +1,26 @@
+# Secrets and session state — never commit
+.env
+.env.*
+!.env.example
+**/cookies.json
+**/cookies*.json
+**/*storageState*.json
+**/auth.json
+accounts/*.yaml
+!accounts/example.account.yaml
+secrets/
+drafts/
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Tooling caches
+node_modules/
+__pycache__/
+.venv/
+dist/
+build/

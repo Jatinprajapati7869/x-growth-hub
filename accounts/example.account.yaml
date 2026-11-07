@@ -1,0 +1,25 @@
+# Copy to a local path (e.g. %USERPROFILE%\.x-growth-hub\accounts\<id>.yaml).
+# Do not commit real account files — they are gitignored as accounts/*.yaml except this template.
+
+id: example_account
+transport: browser # browser | api
+
+persona: |
+  Voice: technical builder, concise, no engagement bait.
+  Topics: dev tools, indie SaaS, AI workflows.
+
+browser:
+  tool_preference: x-use # x-use | tweetly | XActions | xsh
+  cookie_file: "%USERPROFILE%\\.x-growth-hub\\secrets\\example_account\\cookies.json"
+
+api:
+  provider: x-agent # only when transport is api and free portal keys exist
+
+limits:
+  posts_per_day: 4
+  min_minutes_between_posts: 90
+
+growth:
+  allow_follow: false
+  allow_like: false
+  allow_dm: false

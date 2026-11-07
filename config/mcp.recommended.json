@@ -1,0 +1,21 @@
+{
+  "_comment": "Merge into Cursor MCP settings. Replace REPO_ROOT and USER_HOME.",
+  "mcpServers": {
+    "x-actions": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "REPO_ROOT/upstream/browser/XActions"
+    },
+    "x-use": {
+      "command": "python",
+      "args": ["-m", "x_use_mcp"],
+      "env": {
+        "X_USE_HOME": "USER_HOME/.x-growth-hub/x-use-home"
+      }
+    },
+    "xsh": {
+      "command": "xsh",
+      "args": ["mcp"]
+    }
+  }
+}
