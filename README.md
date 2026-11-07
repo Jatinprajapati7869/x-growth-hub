@@ -7,6 +7,10 @@ Multi-account **X growth** with **[Hermes Agent](https://hermes-agent.nousresear
 - Browser automation may violate **X Terms of Service**; suspension is possible.
 - **Never commit** cookies, tokens, or real account yaml. Use `%USERPROFILE%\.x-growth-hub\secrets\`.
 
+## Two-account setup (AI dev + affiliate)
+
+See [docs/HERMES_X.md](docs/HERMES_X.md) and [docs/CRON_EXAMPLES.md](docs/CRON_EXAMPLES.md). Cursor automation prompt: [docs/CURSOR_AUTOMATION_PROMPT.md](docs/CURSOR_AUTOMATION_PROMPT.md).
+
 ## Quick start
 
 ```powershell
